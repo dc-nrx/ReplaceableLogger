@@ -12,7 +12,7 @@ public class DefaultLogger: Logger {
 	public static let logLevelEnvKey = "SWIFT_NETWORKING_LOG_LEVEL"
 
 	public var options: [LogOptions]
-	public var logLevel: LogLevel
+	public var minimumLogLevel: LogLevel
 
 	/// Added at the beginnig of each message.
 	public var commonPrefix: String?
@@ -36,15 +36,15 @@ public class DefaultLogger: Logger {
 		self.commonPrefix = commonPrefix
 		
 		if let customLogLevel = customLogLevel {
-			self.logLevel = customLogLevel
+			self.minimumLogLevel = customLogLevel
 		} else if let envDefinedLogLevelString = ProcessInfo.processInfo.environment[DefaultLogger.logLevelEnvKey],
 				  let envDefinedLogLevel = LogLevel(rawValue: envDefinedLogLevelString) {
-			self.logLevel = envDefinedLogLevel
+			self.minimumLogLevel = envDefinedLogLevel
 		} else {
 			#if DEBUG
-			self.logLevel = .debug
+			self.minimumLogLevel = .debug
 			#else
-			self.logLevel = .force
+			self.minimumLogLevel = .force
 			#endif
 		}
 	}
@@ -56,22 +56,20 @@ public class DefaultLogger: Logger {
 		function: String = #function,
 		line: Int = #line
 	) {
-		if level >= logLevel {
-			unconditionalLog("\(messagePrefix(logLevel))\(message)")
+		if level >= minimumLogLevel {
+			let prefix = messagePrefix(level)
+			unconditionalLog("\(prefix)\(message)")
 		}
 	}
 
 	/**
-	 Moved to a separate _internal_ method for unit testing purposes.
+	 Moved to a separate internal method for unit testing purposes.
 	 */
 	func unconditionalLog(_ message: String) {
 		print(message)
 	}
 	
-	/**
-	 Moved to a separate _internal_ method for unit testing purposes.
-	 */
-	func messagePrefix(_ logLevel: LogLevel) -> String {
+	private func messagePrefix(_ logLevel: LogLevel) -> String {
 		var prefix = ""
 		if let commonPrefix {
 			prefix += commonPrefix + " "

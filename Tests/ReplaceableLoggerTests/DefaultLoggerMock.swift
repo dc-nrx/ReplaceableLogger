@@ -10,12 +10,11 @@ import Foundation
 	
 final class DefaultLoggerMock: DefaultLogger {
 	
-	var logIntercept: ((String) -> ())!
+	var lastMessage: String? = nil
 	
 	override func unconditionalLog(_ message: String) {
 		super.unconditionalLog(message)
-		
-		logIntercept(message)
+		lastMessage = message
 	}
 }
 
@@ -35,6 +34,27 @@ extension LogLevel {
 			return "error sample message"
 		case .fatal:
 			return "fatal sample message"
+		}
+	}
+	
+	static var sampleLevelPrefixesDict: [LogLevel: String] {
+		allCases.reduce(into: [:]) { $0[$1] = $1.sampleLevelPrefix }
+	}
+	
+	var sampleLevelPrefix: String {
+		switch self {
+		case .verbose:
+			return "[VERBOSE]"
+		case .debug:
+			return "[DEBUG]"
+		case .info:
+			return "[INFO]"
+		case .warning:
+			return "[WARNING]"
+		case .error:
+			return "[ERROR]"
+		case .fatal:
+			return "[FATAL"
 		}
 	}
 }
