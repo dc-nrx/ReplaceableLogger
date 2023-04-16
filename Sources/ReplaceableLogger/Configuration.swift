@@ -24,7 +24,7 @@ public enum LogLevel: String, CaseIterable, Comparable {
 	case info
 	case warning
 	case error
-	case nothing
+	case fatal
 
 	public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
 		let all = LogLevel.allCases

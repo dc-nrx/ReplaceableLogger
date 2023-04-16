@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Dmytro Chapovskyi on 14.04.2023.
 //
@@ -44,7 +44,7 @@ public class DefaultLogger: Logger {
 			#if DEBUG
 			self.logLevel = .debug
 			#else
-			self.logLevel = .nothing
+			self.logLevel = .force
 			#endif
 		}
 	}
@@ -57,11 +57,21 @@ public class DefaultLogger: Logger {
 		line: Int = #line
 	) {
 		if level >= logLevel {
-			print("\(messagePrefix(logLevel))\(message)")
+			unconditionalLog("\(messagePrefix(logLevel))\(message)")
 		}
 	}
+
+	/**
+	 Moved to a separate _internal_ method for unit testing purposes.
+	 */
+	func unconditionalLog(_ message: String) {
+		print(message)
+	}
 	
-	private func messagePrefix(_ logLevel: LogLevel) -> String {
+	/**
+	 Moved to a separate _internal_ method for unit testing purposes.
+	 */
+	func messagePrefix(_ logLevel: LogLevel) -> String {
 		var prefix = ""
 		if let commonPrefix {
 			prefix += commonPrefix + " "
@@ -71,5 +81,4 @@ public class DefaultLogger: Logger {
 		}
 		return prefix
 	}
-	
 }
