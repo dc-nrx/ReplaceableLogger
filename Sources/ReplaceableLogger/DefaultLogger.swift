@@ -9,9 +9,17 @@ import Foundation
 
 public class DefaultLogger: Logger {
 	
+	/**
+	 Set an env variable under this key with one of `LogLevel` raw values.
+	 
+	 - Warning:
+	 If not nil, `customLogLevel` parameter passed to `init` overrides the env setting.
+	 */
 	public static let logLevelEnvKey = "SWIFT_NETWORKING_LOG_LEVEL"
-
-	public var options: [LogOptions]
+	
+	/**
+	 
+	 */
 	public var minimumLogLevel: LogLevel
 
 	/// Added at the beginnig of each message.
@@ -27,11 +35,9 @@ public class DefaultLogger: Logger {
 	 */
 	public init(
 		_ customLogLevel: LogLevel? = nil,
-		options: [LogOptions] = [],
 		levelPrefixes: [LogLevel: String]? = [.warning: "⚠️", .error: "❌"],
 		commonPrefix: String? = nil
 	) {
-		self.options = options
 		self.levelPrefixes = levelPrefixes
 		self.commonPrefix = commonPrefix
 		

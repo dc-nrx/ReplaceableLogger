@@ -9,8 +9,6 @@ import Foundation
 
 public protocol Logger {
 	
-	var options: [LogOptions] { get }
-	
 	func log(
 		_ level: LogLevel,
 		_ message: String,
@@ -21,8 +19,6 @@ public protocol Logger {
 }
 
 public extension Logger {
-	
-	var options: [LogOptions] { [] }
 	
 	func log(
 		_ level: LogLevel,

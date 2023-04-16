@@ -7,16 +7,6 @@
 
 import Foundation
 
-public struct LogOptions: OptionSet {
-	
-	public static let showResponseHeaders = LogOptions(rawValue: 1 << 0)
-	
-	public let rawValue: Int
-	public init(rawValue: Int) {
-		self.rawValue = rawValue
-	}
-}
-
 public enum LogLevel: String, CaseIterable, Comparable {
 
 	case verbose
@@ -27,7 +17,6 @@ public enum LogLevel: String, CaseIterable, Comparable {
 	case fatal
 
 	public static func < (lhs: LogLevel, rhs: LogLevel) -> Bool {
-		let all = LogLevel.allCases
-		return all.firstIndex(of: lhs)! < all.firstIndex(of: rhs)!
+		return allCases.firstIndex(of: lhs)! < allCases.firstIndex(of: rhs)!
 	}
 }
