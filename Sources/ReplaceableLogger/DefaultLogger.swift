@@ -7,6 +7,15 @@
 
 import Foundation
 
+/**
+ A simple default implementation for `Logger` protocol.
+ 
+ The main features are:
+ - Logging implemented via standard `print` function.
+ - Ignores all messages with a level lower than `minimumLogLevel` (which, in turn, can be set in multiple ways - see the `minimumLogLevel` doc for details).
+ - Can add prefixes - both universal (e.g. "=>") and level-based (e.g. "⚠️" for warnings) - see `commonPrefix` and `levelPrefixes`
+ - When the time comes, can be easily substituted with a more powerful solution (such as CocoaLumberjack).
+ */
 public class DefaultLogger: Logger {
 	
 	/**
@@ -18,19 +27,25 @@ public class DefaultLogger: Logger {
 	public static let logLevelEnvKey = "SWIFT_NETWORKING_LOG_LEVEL"
 	
 	/**
-	 
+	 The minimul log level. All messages with a lower level will not be logged.
 	 */
 	public var minimumLogLevel: LogLevel
 
-	/// Added at the beginnig of each message.
+	/**
+	 Added at the very beginnig of each message.
+	 */
 	public var commonPrefix: String?
 
-	/// Added after `commonPrefix` to each message with corresponding log level.
+	/**
+	 Added after `commonPrefix` to each message with corresponding log level.
+	 */
 	public var levelPrefixes: [LogLevel: String]?
-		
+	
 	/**
 	 The log level can be set either directly as `logLevel` parameter on init, or as `SWIFT_NETWORKING_LOG_LEVEL` env. variable value.
+	 
 	 The input parameter has priority over env. variable setting.
+	 
 	 If neither is set, the log level is set to `.debug` for DEBUG builds and to `.none` otherwise.
 	 */
 	public init(
