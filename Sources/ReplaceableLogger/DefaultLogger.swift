@@ -75,7 +75,7 @@ public class DefaultLogger: Logger {
 	
 	public func log(
 		_ level: LogLevel,
-		_ message: String,
+		message: @autoclosure () -> String,
 		file: String = #file,
 		function: String = #function,
 		line: Int = #line
@@ -83,7 +83,7 @@ public class DefaultLogger: Logger {
 		if level >= minimumLogLevel {
 			let prefix = messagePrefix(level)
 			let optional = optionalInfo(file: file, function: function, line: line)
-			unconditionalLog("\(optional)\(prefix)\(message)")
+			unconditionalLog("\(optional)\(prefix)\(message())")
 		}
 	}
 
