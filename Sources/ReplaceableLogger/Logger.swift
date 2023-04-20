@@ -11,7 +11,7 @@ public protocol Logger {
 	
 	func log(
 		_ level: LogLevel,
-		_ message: String,
+		_ message: @autoclosure () -> String,
 		file: String,
 		function: String,
 		line: Int
@@ -22,11 +22,11 @@ public extension Logger {
 	
 	func log(
 		_ level: LogLevel,
-		_ message: String,
+		_ message: @autoclosure () -> String,
 		file: String = #file,
 		function: String = #function,
 		line: Int = #line
 	) {
-		log(level, message, file: file, function: function, line: line)
+		log(level, message(), file: file, function: function, line: line)
 	}
 }
