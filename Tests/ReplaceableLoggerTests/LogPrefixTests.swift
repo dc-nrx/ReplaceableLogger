@@ -28,11 +28,12 @@ final class LogPrefixTests: XCTestCase {
 		}
 	}
 	
-	func testSpacesAndOrder_between_commonPrefix_levelPrefix_andMessage() {
+	func testSpacesAndOrder_between_commonPrefix_levelPrefix_andMessage_emptyOptions() {
 		let levelPrefixes = LogLevel.sampleLevelPrefixesDict
 		let message = "message_without_spaces"
 		let commonPrefix = "zzz"
 		let sut = DefaultLoggerMock(.verbose,
+									options: [],
 									levelPrefixes: levelPrefixes,
 									commonPrefix: commonPrefix)
 		for level in LogLevel.allCases {
@@ -45,8 +46,9 @@ final class LogPrefixTests: XCTestCase {
 		}
 	}
 
-	func testSpaces_between_commonPrefix_andMessage_noLevelPrefixes() {
+	func testSpaces_between_commonPrefix_andMessage_noLevelPrefixesAndOptions() {
 		let sut = DefaultLoggerMock(.verbose,
+									options: [],
 									levelPrefixes: nil,
 									commonPrefix: "zzz")
 		for level in LogLevel.allCases {
@@ -56,8 +58,9 @@ final class LogPrefixTests: XCTestCase {
 		}
 	}
 
-	func testSpaces_between_levelPrefixes_andMessage_noCommonPrefix() {
+	func testSpaces_between_levelPrefixes_andMessage_noCommonPrefixAndOptions() {
 		let sut = DefaultLoggerMock(.verbose,
+									options: [],
 									levelPrefixes: nil,
 									commonPrefix: "zzz")
 		for level in LogLevel.allCases {
