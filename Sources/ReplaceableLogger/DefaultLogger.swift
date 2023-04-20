@@ -24,7 +24,7 @@ public class DefaultLogger: Logger {
 	 - Warning:
 	 If not nil, `customLogLevel` parameter passed to `init` overrides the env setting.
 	 */
-	public static let logLevelEnvKey = "SWIFT_NETWORKING_LOG_LEVEL"
+	public static let logLevelEnvKey = "DEFAULT_LOG_LEVEL"
 	
 	/**
 	 The minimul log level. All messages with a lower level will not be logged.
