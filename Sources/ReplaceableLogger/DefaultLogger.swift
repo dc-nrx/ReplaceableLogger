@@ -68,7 +68,7 @@ public class DefaultLogger: Logger {
 			#if DEBUG
 			self.minimumLogLevel = .debug
 			#else
-			self.minimumLogLevel = .force
+			self.minimumLogLevel = .fatal
 			#endif
 		}
 	}
